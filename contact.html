@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking - AURRORA Resort</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="inner-site">
+
+<header>
+    <div class="logo"><a href="index.html">AURRORA</a></div>
+    <nav>
+        <ul>
+            <li><a href="index2.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="activities.html">Activities</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="contact.html">Booking</a></li>
+        </ul>
+    </nav>
+</header>
+
+<section class="hero">
+    <h1>Book Your Stay</h1>
+    <p>Reserve your alpine escape with elegance and ease. Select your preferences below.</p>
+</section>
+
+<main>
+    <section class="contact-form">
+        <form action="#" method="post" id="booking-form"> <!-- Change action to your backend script (e.g., submit.php) -->
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" required placeholder="Enter your full name">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required placeholder="Enter your email">
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" required placeholder="Enter your phone number">
+            </div>
+
+            <div class="form-group">
+                <label for="resort">Select Resort</label>
+                <select id="resort" name="resort" required onchange="updatePackages()">
+                    <option value="">Choose a resort</option>
+                    <option value="zermatt">Zermatt – Emerald Valley</option>
+                    <option value="interlaken">Interlaken – Crystal Resort</option>
+                    <option value="stmoritz">St. Moritz – Alpine Crest</option>
+                    <option value="lucerne">Lucerne – Silver Crest</option>
+                    <option value="grindelwald">Grindelwald Resort</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="package">Select Package</label>
+                <select id="package" name="package" required>
+                    <option value="">First select a resort</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="room-type">Room Type</label>
+                <select id="room-type" name="room-type" required>
+                    <option value="">Choose a room type</option>
+                    <option value="standard">Standard</option>
+                    <option value="deluxe">Deluxe</option>
+                    <option value="suite">Suite</option>
+                    <option value="single">Single Bed</option>
+                    <option value="double">Double Bed</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="persons">Number of Persons</label>
+                <select id="persons" name="persons" required>
+                    <option value="">Select number</option>
+                    <option value="1">1 Person</option>
+                    <option value="2">2 Persons</option>
+                    <option value="3">3 Persons</option>
+                    <option value="4">4 Persons</option>
+                    <option value="5+">5+ Persons (Contact for group rates)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="checkin">Check-in Date</label>
+                <input type="date" id="checkin" name="checkin" required>
+            </div>
+
+            <div class="form-group">
+                <label for="checkout">Check-out Date</label>
+                <input type="date" id="checkout" name="checkout" required>
+            </div>
+
+            <div class="form-group">
+                <label for="requests">Special Requests (Optional)</label>
+                <textarea id="requests" name="requests" rows="4" placeholder="Any dietary needs, accessibility requirements, or special occasions?"></textarea>
+            </div>
+
+            <button type="submit" class="btn">Submit Booking</button>
+        </form>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2025 AURRORA Switzerland</p>
+</footer>
+
+<script>
+    // Package data based on resorts (from your provided code)
+    const packages = {
+        zermatt: [
+            { value: "matterhorn-signature", text: "Matterhorn Signature - CHF 1,650/night: Luxury suite, breakfast, glacier walk, spa" },
+            { value: "ultra-luxury-alpine", text: "Ultra Luxury Alpine - CHF 3,100/night: Private chalet, helicopter tour, personal chef" },
+            { value: "honeymoon-clouds", text: "Honeymoon Clouds - CHF 2,450/night: Panoramic suite, romantic dining, photoshoot" }
+        ],
+        interlaken: [
+            { value: "swiss-adventure-luxe", text: "Swiss Adventure Luxe - CHF 1,450/night: Lake-view room, paragliding, cruise" },
+            { value: "adrenaline-platinum", text: "Adrenaline Platinum - CHF 2,650/night: Penthouse suite, helicopter tour, skydiving" },
+            { value: "premium-family-explorer", text: "Premium Family Explorer - CHF 1,900/night: Family suite, chocolate visit, activities" }
+        ],
+        stmoritz: [
+            { value: "winter-royalty", text: "Winter Royalty - CHF 2,150/night: Ski-in suite, instructor, fine dining" },
+            { value: "billionaire-winter-retreat", text: "Billionaire Winter Retreat - CHF 4,300/night: Presidential suite, champagne spa, VIP access" },
+            { value: "elite-wellness-snow", text: "Elite Wellness Snow Escape - CHF 2,600/night: Thermal spa, wellness coach" }
+        ],
+        lucerne: [
+            { value: "lake-lucerne-romance", text: "Lake Lucerne Romance - CHF 1,350/night: Sunset cruise, candlelight dining" },
+            { value: "cultural-grand-tour", text: "Cultural Grand Tour - CHF 1,550/night: Guided tours, museum access" },
+            { value: "grand-lake-voyage", text: "Grand Lake Voyage - CHF 2,250/night: Private yacht, chef, sommelier" }
+        ],
+        grindelwald: [
+            { value: "cliffside-adventure-luxe", text: "Cliffside Adventure Luxe - CHF 1,300/night: Cliff walk, glacier exploration" },
+            { value: "romantic-nature-hideaway", text: "Romantic Nature Hideaway - CHF 2,050/night: Private chalet, hot tub, firepit dining" },
+            { value: "eiger-aerial-discovery", text: "Eiger Aerial Discovery - CHF 2,800/night: Helicopter flight, alpine picnic" }
+        ]
+    };
+
+    function updatePackages() {
+        const resortSelect = document.getElementById('resort');
+        const packageSelect = document.getElementById('package');
+        const selectedResort = resortSelect.value;
+
+        // Clear existing options
+        packageSelect.innerHTML = '<option value="">Choose a package</option>';
+
+        // Add new options if a resort is selected
+        if (selectedResort && packages[selectedResort]) {
+            packages[selectedResort].forEach(pkg => {
+                const option = document.createElement('option');
+                option.value = pkg.value;
+                option.textContent = pkg.text;
+                packageSelect.appendChild(option);
+            });
+        }
+    }
+</script>
+
+</body>
+</html>
